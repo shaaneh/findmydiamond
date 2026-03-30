@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { SearchParams, Cut, Color, Clarity } from "@/lib/types";
+import type { SearchParams, Cut, Color, Clarity, CertificationBody } from "@/lib/types";
+import { ALL_CERT_LABS } from "@/lib/types";
 
 const CUTS: Cut[] = ["Excellent", "Very Good", "Good", "Fair"];
 const COLORS: Color[] = ["D", "E", "F", "G", "H", "I", "J"];
@@ -18,17 +19,28 @@ export default function SearchForm({ onSearch, loading }: Props) {
   const [color, setColor] = useState<Color>("G");
   const [clarity, setClarity] = useState<Clarity>("VS1");
   const [budget, setBudget] = useState("");
+  const [diamondType, setDiamondType] = useState<"all" | "natural" | "lab-grown">("all");
+  const [certLabs, setCertLabs] = useState<CertificationBody[]>([...ALL_CERT_LABS]);
+
+  function toggleCertLab(lab: CertificationBody) {
+    setCertLabs((prev) =>
+      prev.includes(lab) ? prev.filter((l) => l !== lab) : [...prev, lab]
+    );
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const caratNum = parseFloat(carat);
     if (isNaN(caratNum) || caratNum <= 0) return;
+    if (certLabs.length === 0) return;
 
     onSearch({
       carat: caratNum,
       cut,
       color,
       clarity,
+      diamondType,
+      certLabs,
       ...(budget ? { budget: parseInt(budget.replace(/[^0-9]/g, ""), 10) } : {}),
     });
   }
@@ -67,6 +79,24 @@ export default function SearchForm({ onSearch, loading }: Props) {
         >
           What are you looking for?
         </h2>
+      </div>
+
+      {/* Diamond Type Segmented Control */}
+      <div className="flex rounded-lg overflow-hidden mb-4" style={{ border: "1px solid var(--border)" }}>
+        {(["all", "natural", "lab-grown"] as const).map((type) => (
+          <button
+            key={type}
+            type="button"
+            onClick={() => setDiamondType(type)}
+            className="flex-1 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-200"
+            style={{
+              background: diamondType === type ? "var(--gold)" : "var(--bg-card)",
+              color: diamondType === type ? "white" : "var(--text-secondary)",
+            }}
+          >
+            {type === "all" ? "All" : type === "natural" ? "Natural" : "Lab-Grown"}
+          </button>
+        ))}
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
@@ -198,6 +228,35 @@ export default function SearchForm({ onSearch, loading }: Props) {
             ))}
           </select>
         </div>
+      </div>
+
+      {/* Certification Lab Pills */}
+      <div className="mb-4">
+        <label className={labelClasses} style={{ color: "var(--text-muted)" }}>
+          Certification
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {ALL_CERT_LABS.map((lab) => (
+            <button
+              key={lab}
+              type="button"
+              onClick={() => toggleCertLab(lab)}
+              className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
+              style={{
+                background: certLabs.includes(lab) ? "var(--gold-bg)" : "var(--bg-elevated)",
+                color: certLabs.includes(lab) ? "var(--gold)" : "var(--text-light)",
+                border: certLabs.includes(lab) ? "1px solid var(--gold-light)" : "1px solid var(--border)",
+              }}
+            >
+              {lab}
+            </button>
+          ))}
+        </div>
+        {certLabs.length === 0 && (
+          <p className="text-xs mt-1" style={{ color: "var(--deal-poor)" }}>
+            Select at least one certification lab
+          </p>
+        )}
       </div>
 
       <div className="mb-5">

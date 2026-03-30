@@ -4,6 +4,7 @@ import { useState } from "react";
 import SearchForm from "@/components/SearchForm";
 import Results from "@/components/Results";
 import type { SearchParams, FairPriceResult, ListingWithDelta } from "@/lib/types";
+import { ALL_CERT_LABS } from "@/lib/types";
 
 export default function Home() {
   const [results, setResults] = useState<{
@@ -13,19 +14,14 @@ export default function Home() {
   } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [labFairPrice, setLabFairPrice] = useState<FairPriceResult | null>(null);
 
   async function handleSearch(params: SearchParams) {
     setLoading(true);
     setError(null);
     try {
-      const qs = new URLSearchParams({
-        carat: params.carat.toString(),
-        cut: params.cut,
-        color: params.color,
-        clarity: params.clarity,
-        ...(params.budget ? { budget: params.budget.toString() } : {}),
-      });
-      const res = await fetch(`/api/search?${qs}`);
+      const url = `/api/search?carat=${params.carat}&cut=${params.cut}&color=${params.color}&clarity=${params.clarity}${params.budget ? `&budget=${params.budget}` : ""}&diamondType=${params.diamondType || "all"}&certLabs=${(params.certLabs || ALL_CERT_LABS).join(",")}`;
+      const res = await fetch(url);
       if (!res.ok) {
         setError("Something went wrong. Please try again.");
         return;
@@ -35,6 +31,7 @@ export default function Home() {
         setError("Unexpected response. Please try again.");
         return;
       }
+      setLabFairPrice(data.labFairPrice);
       setResults({ params, ...data });
     } catch {
       setError("Could not connect to the server. Please check your connection.");
