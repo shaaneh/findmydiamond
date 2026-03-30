@@ -45,3 +45,20 @@ create policy "Anyone can subscribe"
 -- Index for the fair-price query
 create index if not exists idx_listings_specs
   on listings (shape, color, clarity);
+
+-- Unique constraint on retailer_url for upsert deduplication
+create unique index if not exists idx_listings_retailer_url
+  on listings (retailer_url) where retailer_url is not null;
+
+-- Allow service-role or cron to insert/update listings
+create policy "Listings can be inserted via API"
+  on listings for insert
+  with check (true);
+
+create policy "Listings can be updated via API"
+  on listings for update
+  using (true);
+
+create policy "Listings can be deleted via API"
+  on listings for delete
+  using (true);

@@ -1,35 +1,50 @@
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen pb-16" style={{ background: "#fafbfd" }}>
-      <div className="max-w-[600px] mx-auto px-5 pt-12">
-        <a
-          href="/"
-          className="inline-flex items-center gap-1.5 text-sm transition-colors"
-          style={{ color: "#64748b" }}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      {/* Nav */}
+      <nav
+        className="sticky top-0 z-40"
+        style={{
+          background: "rgba(250, 250, 248, 0.92)",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid var(--border-light)",
+        }}
+      >
+        <div className="max-w-[1080px] mx-auto px-5 h-14 flex items-center">
+          <a
+            href="/"
+            className="flex items-center gap-2 text-sm transition-colors hover:opacity-80"
+            style={{ color: "var(--text-secondary)" }}
           >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          Back to findmydiamond
-        </a>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Back to findmydiamond
+          </a>
+        </div>
+      </nav>
 
+      <main className="max-w-[600px] mx-auto px-5 pt-10 pb-16">
         <h1
-          className="text-2xl font-bold mt-8 mb-8"
-          style={{ fontFamily: "var(--font-display)", color: "#0c1222" }}
+          className="text-2xl font-bold mb-8"
+          style={{
+            fontFamily: "var(--font-display)",
+            color: "var(--text-primary)",
+          }}
         >
           Privacy Policy
         </h1>
 
         <div
           className="space-y-5 text-sm leading-relaxed"
-          style={{ color: "#334155" }}
+          style={{ color: "var(--text-secondary)" }}
         >
           <p>
             <strong>findmydiamond</strong> (&quot;we&quot;, &quot;us&quot;) is
@@ -41,7 +56,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             What we collect
           </h2>
@@ -54,7 +69,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             How we use your data
           </h2>
@@ -66,7 +81,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Legal basis
           </h2>
@@ -78,7 +93,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Analytics
           </h2>
@@ -90,7 +105,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Your rights
           </h2>
@@ -105,7 +120,11 @@ export default function PrivacyPage() {
           </ul>
           <p>
             To exercise these rights, email{" "}
-            <a href="mailto:privacy@findmydiamond.co.uk" className="underline" style={{ color: "#1e293b" }}>
+            <a
+              href="mailto:privacy@findmydiamond.co.uk"
+              className="underline"
+              style={{ color: "var(--text-primary)" }}
+            >
               privacy@findmydiamond.co.uk
             </a>{" "}
             and we will action your request within 30 days.
@@ -113,7 +132,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Data retention
           </h2>
@@ -125,7 +144,7 @@ export default function PrivacyPage() {
 
           <h2
             className="text-base font-semibold pt-2"
-            style={{ color: "#1e293b" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Cookies
           </h2>
@@ -135,11 +154,14 @@ export default function PrivacyPage() {
             cookies.
           </p>
 
-          <p className="text-xs pt-6 pb-4" style={{ color: "#94a3b8" }}>
+          <p
+            className="text-xs pt-6 pb-4"
+            style={{ color: "var(--text-light)" }}
+          >
             Last updated: March 2026
           </p>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

@@ -52,10 +52,10 @@ export default function EmailCapture({ params, fairPrice }: Props) {
   if (submitted) {
     return (
       <div
-        className="rounded-xl p-7 mt-6 text-center animate-fade-in-up"
+        className="rounded-xl p-7 mt-8 text-center animate-fade-in"
         style={{
-          background: "#f0fdf4",
-          border: "1px solid #bbf7d0",
+          background: "var(--deal-great-bg)",
+          border: "1px solid #A7F3D0",
         }}
       >
         <svg
@@ -64,7 +64,7 @@ export default function EmailCapture({ params, fairPrice }: Props) {
           height="32"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#16a34a"
+          stroke="var(--deal-great)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -72,10 +72,13 @@ export default function EmailCapture({ params, fairPrice }: Props) {
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
           <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
-        <h3 className="text-[15px] font-semibold mb-1" style={{ color: "#15803d" }}>
+        <h3
+          className="text-[15px] font-semibold mb-1"
+          style={{ color: "var(--deal-great)" }}
+        >
           You&apos;re all set!
         </h3>
-        <p className="text-sm" style={{ color: "#16a34a" }}>
+        <p className="text-sm" style={{ color: "#047857" }}>
           We&apos;ll email you when prices drop for this spec.
         </p>
       </div>
@@ -87,10 +90,10 @@ export default function EmailCapture({ params, fairPrice }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl p-7 mt-6 text-center"
+      className="rounded-xl p-7 mt-8 text-center"
       style={{
-        background: "linear-gradient(135deg, #fdf6e3 0%, #fffbeb 100%)",
-        border: "1px solid #f0d48a",
+        background: "var(--gold-bg)",
+        border: "1px solid var(--gold-light)",
       }}
     >
       <svg
@@ -99,7 +102,7 @@ export default function EmailCapture({ params, fairPrice }: Props) {
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#d4a853"
+        stroke="var(--gold)"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -109,11 +112,11 @@ export default function EmailCapture({ params, fairPrice }: Props) {
       </svg>
       <h3
         className="text-[15px] font-semibold mb-1"
-        style={{ color: "#92400e" }}
+        style={{ color: "var(--text-primary)" }}
       >
         Get alerted when prices drop
       </h3>
-      <p className="text-sm mb-5" style={{ color: "#b45309" }}>
+      <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
         We&apos;ll email you when a {specLabel} drops
         {fairPrice ? ` below ${formatPrice(fairPrice)}` : ""} from a UK
         jeweller.
@@ -126,19 +129,20 @@ export default function EmailCapture({ params, fairPrice }: Props) {
           placeholder="your@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 px-3.5 py-2.5 border rounded-lg text-sm"
+          className="flex-1 px-3.5 py-2.5 rounded-lg text-sm"
           style={{
-            borderColor: "#e2e8f0",
-            backgroundColor: "#ffffff",
+            border: "1px solid var(--border)",
+            backgroundColor: "var(--bg-card)",
+            color: "var(--text-primary)",
           }}
         />
         <button
           type="submit"
           className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer"
           style={{
-            background: "linear-gradient(135deg, #d4a853 0%, #e2bd6e 100%)",
-            color: "#ffffff",
-            boxShadow: "0 2px 8px rgba(212,168,83,0.3)",
+            background: "linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%)",
+            color: "var(--text-inverse)",
+            boxShadow: "0 2px 8px rgba(197, 165, 114, 0.3)",
           }}
         >
           Set Alert
@@ -151,15 +155,15 @@ export default function EmailCapture({ params, fairPrice }: Props) {
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
           className="mt-0.5 cursor-pointer"
-          style={{ accentColor: "#d4a853" }}
+          style={{ accentColor: "var(--gold)" }}
         />
-        <span className="text-xs" style={{ color: "#92400e" }}>
+        <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
           I consent to receiving price alert emails. You can unsubscribe at any
           time. See our{" "}
           <a
             href="/privacy"
             className="underline"
-            style={{ color: "#b45309" }}
+            style={{ color: "var(--text-primary)" }}
           >
             privacy policy
           </a>
@@ -168,7 +172,10 @@ export default function EmailCapture({ params, fairPrice }: Props) {
       </label>
 
       {error && (
-        <p className="text-xs mt-3 font-medium" style={{ color: "#dc2626" }}>
+        <p
+          className="text-xs mt-3 font-medium"
+          style={{ color: "var(--deal-poor)" }}
+        >
           {error}
         </p>
       )}

@@ -14,35 +14,69 @@ interface Props {
   listings: ListingWithDelta[];
 }
 
-function DeltaBadge({ delta }: { delta: number | null }) {
-  if (delta === null) return null;
-  if (delta < -1) {
-    return (
-      <span
-        className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full"
-        style={{ backgroundColor: "#f0fdf4", color: "#15803d" }}
-      >
-        {Math.abs(delta)}% below
-      </span>
-    );
-  }
-  if (delta > 1) {
-    return (
-      <span
-        className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full"
-        style={{ backgroundColor: "#fef2f2", color: "#b91c1c" }}
-      >
-        {delta}% above
-      </span>
-    );
-  }
+function getDealInfo(delta: number | null): {
+  label: string;
+  color: string;
+  bg: string;
+} {
+  if (delta === null) return { label: "N/A", color: "var(--text-muted)", bg: "var(--bg-elevated)" };
+  if (delta <= -10) return { label: "Great Deal", color: "var(--deal-great)", bg: "var(--deal-great-bg)" };
+  if (delta <= -3) return { label: "Good Deal", color: "var(--deal-great)", bg: "var(--deal-great-bg)" };
+  if (delta <= 3) return { label: "Fair Price", color: "var(--deal-fair)", bg: "var(--deal-fair-bg)" };
+  if (delta <= 10) return { label: "Above Avg", color: "var(--deal-poor)", bg: "var(--deal-poor-bg)" };
+  return { label: "Overpriced", color: "var(--deal-poor)", bg: "var(--deal-poor-bg)" };
+}
+
+function SpectrumBar({
+  fairPrice,
+  low,
+  high,
+}: {
+  fairPrice: number;
+  low: number;
+  high: number;
+}) {
+  const range = high - low;
+  const fairPos = range > 0 ? ((fairPrice - low) / range) * 100 : 50;
+  const clampedPos = Math.max(5, Math.min(95, fairPos));
+
   return (
-    <span
-      className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full"
-      style={{ backgroundColor: "#f1f5f9", color: "#64748b" }}
-    >
-      Fair price
-    </span>
+    <div className="mt-4 mb-1 px-1">
+      <div className="relative">
+        <div
+          className="spectrum-bar h-2 rounded-full w-full"
+          style={{ opacity: 0.85 }}
+        />
+        {/* Fair price marker */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2"
+          style={{ left: `${clampedPos}%` }}
+        >
+          <div
+            className="w-4 h-4 rounded-full border-2 -ml-2"
+            style={{
+              background: "var(--bg-card)",
+              borderColor: "var(--text-primary)",
+              boxShadow: "var(--shadow-md)",
+            }}
+          />
+        </div>
+      </div>
+      <div className="flex justify-between mt-2">
+        <span className="text-xs" style={{ color: "var(--deal-great)" }}>
+          {formatPrice(low)}
+        </span>
+        <span
+          className="text-xs font-semibold"
+          style={{ color: "var(--text-primary)" }}
+        >
+          Fair: {formatPrice(fairPrice)}
+        </span>
+        <span className="text-xs" style={{ color: "var(--deal-poor)" }}>
+          {formatPrice(high)}
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -53,65 +87,97 @@ function ListingCard({
   listing: ListingWithDelta;
   index: number;
 }) {
-  const isBestDeal = index === 0 && listing.deltaPercent !== null && listing.deltaPercent < -1;
+  const isBestDeal =
+    index === 0 && listing.deltaPercent !== null && listing.deltaPercent < -1;
+  const deal = getDealInfo(listing.deltaPercent);
+  const staggerClass =
+    index < 5 ? `stagger-${index + 1}` : "";
 
   return (
     <div
-      className="rounded-xl p-5 mb-3 flex justify-between items-center transition-all duration-200 hover:-translate-y-0.5"
+      className={`rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all duration-200 hover:shadow-md animate-fade-in-up ${staggerClass}`}
       style={{
-        background: "#ffffff",
-        border: isBestDeal ? "1.5px solid #d4a853" : "1px solid #f1f5f9",
-        boxShadow:
-          "0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)",
+        background: "var(--bg-card)",
+        border: isBestDeal
+          ? "1.5px solid var(--gold)"
+          : "1px solid var(--border)",
+        boxShadow: "var(--shadow-sm)",
       }}
     >
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 flex-wrap">
-          <h3 className="text-[15px] font-semibold" style={{ color: "#1e293b" }}>
-            {listing.carat}ct Round, {listing.color}, {listing.clarity},{" "}
-            {listing.cut}
+          <h3
+            className="text-[15px] font-semibold"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {listing.carat}ct {listing.color} {listing.clarity} {listing.cut}
           </h3>
           {isBestDeal && (
             <span
               className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-              style={{ background: "#fdf6e3", color: "#b45309" }}
+              style={{
+                background: "var(--gold-bg)",
+                color: "var(--gold)",
+              }}
             >
               Best Deal
             </span>
           )}
         </div>
-        <p className="text-sm mt-1" style={{ color: "#64748b" }}>
-          {listing.retailer_name}
-          <span style={{ color: "#cbd5e1" }}> &middot; </span>
+        <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+          <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            {listing.retailer_name}
+          </span>
           <span
-            className="text-xs font-medium px-1.5 py-0.5 rounded"
-            style={{ backgroundColor: "#f8fafc", color: "#64748b" }}
+            className="text-[11px] font-medium px-1.5 py-0.5 rounded"
+            style={{
+              backgroundColor: "var(--bg-elevated)",
+              color: "var(--text-muted)",
+            }}
           >
             {listing.certification_body}
           </span>
-        </p>
-        {listing.retailer_url && listing.retailer_url.startsWith("https://") && (
-          <a
-            href={listing.retailer_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs mt-1.5 inline-flex items-center gap-1 hover:underline"
-            style={{ color: "#d4a853" }}
-          >
-            View on retailer site
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M7 17L17 7M17 7H7M17 7v10" />
-            </svg>
-          </a>
-        )}
+        </div>
+        {listing.retailer_url &&
+          listing.retailer_url.startsWith("https://") && (
+            <a
+              href={listing.retailer_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs mt-2 inline-flex items-center gap-1 transition-colors hover:opacity-80"
+              style={{ color: "var(--gold)" }}
+            >
+              View on {listing.retailer_name}
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          )}
       </div>
-      <div className="text-right shrink-0 ml-5">
-        <div className="text-xl font-bold" style={{ color: "#0c1222" }}>
+      <div className="text-right shrink-0 flex sm:flex-col items-center sm:items-end gap-2 sm:gap-1">
+        <div
+          className="text-xl font-bold"
+          style={{ color: "var(--text-primary)" }}
+        >
           {formatPrice(listing.price_gbp)}
         </div>
-        <div className="mt-1">
-          <DeltaBadge delta={listing.deltaPercent} />
-        </div>
+        <span
+          className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full"
+          style={{ backgroundColor: deal.bg, color: deal.color }}
+        >
+          {listing.deltaPercent !== null && listing.deltaPercent < -1
+            ? `${Math.abs(listing.deltaPercent)}% below`
+            : listing.deltaPercent !== null && listing.deltaPercent > 1
+              ? `${listing.deltaPercent}% above`
+              : deal.label}
+        </span>
       </div>
     </div>
   );
@@ -119,115 +185,129 @@ function ListingCard({
 
 export default function Results({ params, fairPrice, listings }: Props) {
   return (
-    <div className="mt-2">
-      {/* Fair Price Hero */}
+    <div>
+      {/* Fair Price Hero Card */}
       {!fairPrice.noData && fairPrice.fairPrice !== null ? (
         <div
           className="rounded-xl p-7 mb-6 text-center animate-fade-in-up"
           style={{
-            background: "linear-gradient(135deg, #0c1222 0%, #1e293b 100%)",
-            boxShadow: "0 4px 24px rgba(15,23,42,0.2)",
+            background: "var(--bg-hero)",
+            boxShadow: "var(--shadow-hero)",
           }}
         >
           <div
-            className="text-xs font-semibold uppercase tracking-wider mb-1"
-            style={{ color: "#94a3b8" }}
+            className="text-xs font-semibold uppercase tracking-[0.15em] mb-2"
+            style={{ color: "var(--gold-light)" }}
           >
             Estimated Fair Price
           </div>
           <div
-            className="text-[42px] font-bold tracking-tight"
-            style={{ color: "#ffffff", fontFamily: "var(--font-display)" }}
+            className="text-5xl font-bold tracking-tight animate-count-up"
+            style={{
+              color: "var(--text-inverse)",
+              fontFamily: "var(--font-display)",
+            }}
           >
             {formatPrice(fairPrice.fairPrice)}
           </div>
+          <div className="text-sm mt-1" style={{ color: "#94A3B0" }}>
+            for a {params.carat}ct {params.color} {params.clarity} Round
+          </div>
+
+          {/* Spectrum Bar */}
           {fairPrice.low !== null && fairPrice.high !== null && (
-            <div className="text-sm mt-1" style={{ color: "#94a3b8" }}>
-              UK range: {formatPrice(fairPrice.low)} &ndash;{" "}
-              {formatPrice(fairPrice.high)}
+            <div className="max-w-[400px] mx-auto mt-4">
+              <SpectrumBar
+                fairPrice={fairPrice.fairPrice}
+                low={fairPrice.low}
+                high={fairPrice.high}
+              />
             </div>
           )}
+
           {fairPrice.isLimitedData && (
             <div
-              className="inline-flex items-center gap-1.5 text-xs mt-3 px-3 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(212,168,83,0.15)", color: "#e2bd6e" }}
+              className="inline-flex items-center gap-1.5 text-xs mt-4 px-3 py-1.5 rounded-full"
+              style={{
+                backgroundColor: "rgba(197, 165, 114, 0.15)",
+                color: "var(--gold-light)",
+              }}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M12 9v4M12 17h.01" />
                 <circle cx="12" cy="12" r="10" />
               </svg>
               Estimate based on limited data
             </div>
           )}
-          <div className="text-xs mt-3" style={{ color: "#64748b" }}>
-            Prices may vary by certification body (GIA vs IGI)
-          </div>
         </div>
       ) : (
         <div
           className="rounded-xl p-7 mb-6 text-center animate-fade-in-up"
           style={{
-            background: "#ffffff",
-            border: "1px solid #f1f5f9",
-            boxShadow:
-              "0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow-md)",
           }}
         >
-          <div className="text-base font-semibold mb-2" style={{ color: "#1e293b" }}>
+          <div
+            className="text-base font-semibold mb-2"
+            style={{ color: "var(--text-primary)" }}
+          >
             Not enough data for a fair price estimate
           </div>
-          <p className="text-sm" style={{ color: "#64748b" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             We don&apos;t have enough UK listings for this spec yet. Below are
             the closest matches we found.
           </p>
         </div>
       )}
 
-      {/* Listings header */}
+      {/* Listings */}
       {listings.length > 0 && (
-        <div className="flex items-center justify-between mb-3 px-1">
-          <h2
-            className="text-sm font-semibold"
-            style={{ color: "#334155" }}
-          >
-            {listings.length} listing{listings.length !== 1 ? "s" : ""} found
-          </h2>
-          <span className="text-xs" style={{ color: "#94a3b8" }}>
-            Sorted by best value
-          </span>
-        </div>
+        <>
+          <div className="flex items-center justify-between mb-4 px-1">
+            <h2
+              className="text-sm font-semibold"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {listings.length} listing{listings.length !== 1 ? "s" : ""} found
+            </h2>
+            <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+              Sorted by best value
+            </span>
+          </div>
+          <div className="space-y-3">
+            {listings.map((listing, i) => (
+              <ListingCard key={listing.id} listing={listing} index={i} />
+            ))}
+          </div>
+        </>
       )}
 
-      {/* Listings */}
-      {listings.length > 0 ? (
-        listings.map((listing, i) => (
-          <div
-            key={listing.id}
-            className={
-              i === 0
-                ? "animate-fade-in-up"
-                : i === 1
-                  ? "animate-fade-in-up-delay-1"
-                  : "animate-fade-in-up-delay-2"
-            }
-          >
-            <ListingCard listing={listing} index={i} />
-          </div>
-        ))
-      ) : (
+      {listings.length === 0 && (
         <div
           className="rounded-xl p-7 text-center"
           style={{
-            background: "#ffffff",
-            border: "1px solid #f1f5f9",
-            boxShadow:
-              "0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
-          <p className="text-sm font-semibold mb-1" style={{ color: "#1e293b" }}>
+          <p
+            className="text-sm font-semibold mb-1"
+            style={{ color: "var(--text-primary)" }}
+          >
             No diamonds matching this spec yet
           </p>
-          <p className="text-sm" style={{ color: "#64748b" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             We&apos;re adding new UK listings every week.
           </p>
         </div>

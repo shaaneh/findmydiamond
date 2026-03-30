@@ -34,26 +34,21 @@ export default function SearchForm({ onSearch, loading }: Props) {
   }
 
   const inputClasses =
-    "w-full px-3.5 py-2.5 border rounded-lg text-sm transition-all duration-200";
-  const inputStyle = {
-    borderColor: "#e2e8f0",
-    backgroundColor: "#ffffff",
-  };
-  const labelClasses = "block text-[11px] font-semibold mb-1.5 uppercase tracking-wider";
-  const labelStyle = { color: "#64748b" };
+    "w-full px-3.5 py-2.5 rounded-lg text-sm transition-all duration-200";
+  const labelClasses =
+    "block text-[11px] font-semibold mb-1.5 uppercase tracking-wider";
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl p-7 mb-8"
+      className="rounded-xl p-6 sm:p-7"
       style={{
-        background: "#ffffff",
-        boxShadow:
-          "0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)",
-        border: "1px solid #f1f5f9",
+        background: "var(--bg-card)",
+        boxShadow: "var(--shadow-lg)",
+        border: "1px solid var(--border)",
       }}
     >
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center gap-2 mb-5">
         <svg
           width="16"
           height="16"
@@ -61,19 +56,26 @@ export default function SearchForm({ onSearch, loading }: Props) {
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          style={{ color: "#d4a853" }}
+          style={{ color: "var(--gold)" }}
         >
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
         </svg>
-        <h2 className="text-base font-semibold" style={{ color: "#1e293b" }}>
+        <h2
+          className="text-base font-semibold"
+          style={{ color: "var(--text-primary)" }}
+        >
           What are you looking for?
         </h2>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
         <div>
-          <label htmlFor="shape" className={labelClasses} style={labelStyle}>
+          <label
+            htmlFor="shape"
+            className={labelClasses}
+            style={{ color: "var(--text-muted)" }}
+          >
             Shape
           </label>
           <select
@@ -81,9 +83,9 @@ export default function SearchForm({ onSearch, loading }: Props) {
             disabled
             className={inputClasses}
             style={{
-              ...inputStyle,
-              backgroundColor: "#f8fafc",
-              color: "#94a3b8",
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-elevated)",
+              color: "var(--text-light)",
               cursor: "not-allowed",
             }}
           >
@@ -91,7 +93,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
           </select>
         </div>
         <div>
-          <label htmlFor="carat" className={labelClasses} style={labelStyle}>
+          <label
+            htmlFor="carat"
+            className={labelClasses}
+            style={{ color: "var(--text-muted)" }}
+          >
             Carat
           </label>
           <input
@@ -103,15 +109,23 @@ export default function SearchForm({ onSearch, loading }: Props) {
             value={carat}
             onChange={(e) => setCarat(e.target.value)}
             className={inputClasses}
-            style={inputStyle}
+            style={{
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+            }}
             required
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-3 sm:mb-4">
         <div>
-          <label htmlFor="cut" className={labelClasses} style={labelStyle}>
+          <label
+            htmlFor="cut"
+            className={labelClasses}
+            style={{ color: "var(--text-muted)" }}
+          >
             Cut
           </label>
           <select
@@ -119,7 +133,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
             value={cut}
             onChange={(e) => setCut(e.target.value as Cut)}
             className={inputClasses}
-            style={inputStyle}
+            style={{
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+            }}
           >
             {CUTS.map((c) => (
               <option key={c} value={c}>
@@ -129,7 +147,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
           </select>
         </div>
         <div>
-          <label htmlFor="colour" className={labelClasses} style={labelStyle}>
+          <label
+            htmlFor="colour"
+            className={labelClasses}
+            style={{ color: "var(--text-muted)" }}
+          >
             Colour
           </label>
           <select
@@ -137,7 +159,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
             value={color}
             onChange={(e) => setColor(e.target.value as Color)}
             className={inputClasses}
-            style={inputStyle}
+            style={{
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+            }}
           >
             {COLORS.map((c) => (
               <option key={c} value={c}>
@@ -147,7 +173,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
           </select>
         </div>
         <div>
-          <label htmlFor="clarity" className={labelClasses} style={labelStyle}>
+          <label
+            htmlFor="clarity"
+            className={labelClasses}
+            style={{ color: "var(--text-muted)" }}
+          >
             Clarity
           </label>
           <select
@@ -155,7 +185,11 @@ export default function SearchForm({ onSearch, loading }: Props) {
             value={clarity}
             onChange={(e) => setClarity(e.target.value as Clarity)}
             className={inputClasses}
-            style={inputStyle}
+            style={{
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+            }}
           >
             {CLARITIES.map((c) => (
               <option key={c} value={c}>
@@ -167,53 +201,66 @@ export default function SearchForm({ onSearch, loading }: Props) {
       </div>
 
       <div className="mb-5">
-        <label htmlFor="budget" className={labelClasses} style={labelStyle}>
+        <label
+          htmlFor="budget"
+          className={labelClasses}
+          style={{ color: "var(--text-muted)" }}
+        >
           Budget (optional)
         </label>
-        <input
-          id="budget"
-          type="text"
-          inputMode="numeric"
-          placeholder="e.g. 5000"
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
-          className={`${inputClasses} max-w-[200px]`}
-          style={inputStyle}
-        />
-        <span className="text-xs ml-2" style={{ color: "#94a3b8" }}>
-          GBP
-        </span>
+        <div className="flex items-center gap-2">
+          <input
+            id="budget"
+            type="text"
+            inputMode="numeric"
+            placeholder="e.g. 5000"
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+            className={`${inputClasses} max-w-[200px]`}
+            style={{
+              border: "1px solid var(--border)",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+            }}
+          />
+          <span className="text-xs" style={{ color: "var(--text-light)" }}>
+            GBP
+          </span>
+        </div>
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3.5 rounded-lg text-[15px] font-semibold transition-all duration-200 disabled:opacity-50 cursor-pointer"
+        className="w-full py-3 rounded-lg text-[15px] font-semibold transition-all duration-200 disabled:opacity-50 cursor-pointer"
         style={{
           background: loading
-            ? "#94a3b8"
-            : "linear-gradient(135deg, #1e293b 0%, #334155 100%)",
-          color: "#ffffff",
-          boxShadow: loading
-            ? "none"
-            : "0 2px 8px rgba(15,23,42,0.15), 0 1px 2px rgba(15,23,42,0.1)",
-        }}
-        onMouseEnter={(e) => {
-          if (!loading)
-            (e.target as HTMLButtonElement).style.boxShadow =
-              "0 4px 16px rgba(15,23,42,0.2), 0 2px 4px rgba(15,23,42,0.12)";
-        }}
-        onMouseLeave={(e) => {
-          if (!loading)
-            (e.target as HTMLButtonElement).style.boxShadow =
-              "0 2px 8px rgba(15,23,42,0.15), 0 1px 2px rgba(15,23,42,0.1)";
+            ? "var(--text-light)"
+            : "linear-gradient(135deg, var(--bg-hero) 0%, #1E2D3D 100%)",
+          color: "var(--text-inverse)",
+          boxShadow: loading ? "none" : "var(--shadow-hero)",
         }}
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">
-            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            <svg
+              className="animate-spin h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
             </svg>
             Checking prices...
           </span>
