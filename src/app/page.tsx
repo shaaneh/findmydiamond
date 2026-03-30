@@ -98,7 +98,7 @@ export default function Home() {
             className="text-xs font-medium uppercase tracking-[0.2em] mb-4 animate-fade-in"
             style={{ color: "var(--gold)" }}
           >
-            UK Diamond Price Comparison
+            Diamond Price Comparison
           </p>
           <h1
             className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 animate-fade-in-up"
@@ -114,7 +114,7 @@ export default function Home() {
             className="text-base sm:text-lg max-w-[440px] mx-auto mb-10 animate-fade-in-up stagger-1"
             style={{ color: "#94A3B0", lineHeight: 1.6 }}
           >
-            Compare prices from trusted UK retailers. See the fair market
+            Compare diamond prices from trusted retailers. See the fair market
             value before you buy.
           </p>
 
@@ -135,7 +135,7 @@ export default function Home() {
                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </>
                 ),
-                label: "UK Retailers Only",
+                label: "Trusted Retailers",
               },
               {
                 icon: (
@@ -386,6 +386,10 @@ export default function Home() {
                 Privacy Policy
               </a>
               <span style={{ color: "#334155" }}>|</span>
+              <a href="/terms" className="hover:underline transition-colors" style={{ color: "#94A3B0" }}>
+                Terms
+              </a>
+              <span style={{ color: "#334155" }}>|</span>
               <span>findmydiamond.co.uk</span>
             </div>
           </div>
@@ -393,8 +397,8 @@ export default function Home() {
             className="text-xs mt-4 text-center sm:text-left"
             style={{ color: "#475569" }}
           >
-            Prices are indicative and sourced from UK retailers. Always verify
-            with the jeweller before purchasing. Not financial advice.
+            Prices are indicative and sourced from third-party retailers. Always verify
+            with the retailer before purchasing. Not financial advice.
           </p>
         </div>
       </footer>
