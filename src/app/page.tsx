@@ -231,7 +231,9 @@ export default function Home() {
             <Results
               params={results.params}
               fairPrice={results.fairPrice}
+              labFairPrice={labFairPrice}
               listings={results.listings}
+              diamondType={results.params.diamondType || "all"}
             />
           </div>
         )}
