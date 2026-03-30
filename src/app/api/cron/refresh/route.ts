@@ -22,7 +22,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const listings = await fetchAllFeeds();
+    // TODO (Task 5): fetch live exchange rate and pass here
+    const listings = await fetchAllFeeds(0.79);
 
     if (listings.length === 0) {
       return NextResponse.json({

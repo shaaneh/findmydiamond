@@ -8,10 +8,10 @@ export type FeedResult = Omit<Listing, "id" | "created_at">;
  * Fetch listings from all configured feeds.
  * Each feed module is independent, so one failing doesn't block the others.
  */
-export async function fetchAllFeeds(): Promise<FeedResult[]> {
+export async function fetchAllFeeds(usdToGbp: number): Promise<FeedResult[]> {
   const results = await Promise.allSettled([
-    fetchBluenileFeed(),
-    fetchJamesAllenFeed(),
+    fetchBluenileFeed(usdToGbp),
+    fetchJamesAllenFeed(usdToGbp),
   ]);
 
   const listings: FeedResult[] = [];
