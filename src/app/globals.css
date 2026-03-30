@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --foreground: #1a1a1a;
+  --background: #fafafa;
+  --muted: #888;
+  --border: #e0e0e0;
+  --card: #ffffff;
+  --deal-good: #2a7d2a;
+  --deal-ok: #888;
+  --deal-high: #c44;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
