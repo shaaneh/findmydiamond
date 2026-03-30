@@ -72,9 +72,10 @@ export function calculateFairPrice(
 
     if (bucket.length >= 3) {
       const prices = bucket.map((l) => l.price_gbp);
+      const sorted = [...prices].sort((a, b) => a - b);
       const fairPrice = median(prices);
-      const low = Math.min(...prices);
-      const high = Math.max(...prices);
+      const low = sorted[0];
+      const high = sorted[sorted.length - 1];
       return {
         fairPrice,
         low,
@@ -113,7 +114,7 @@ export function rankListings(
       params.color,
       params.clarity
     );
-    if (matched.length > 0) break;
+    if (matched.length >= 3) break;
   }
 
   // Apply budget filter

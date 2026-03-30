@@ -18,6 +18,9 @@ export async function GET(request: NextRequest) {
   const budget = budgetStr ? parseInt(budgetStr, 10) : undefined;
 
   // Validate inputs
+  if (budget !== undefined && (isNaN(budget) || budget <= 0 || budget > 1_000_000)) {
+    return NextResponse.json({ error: "Invalid budget" }, { status: 400 });
+  }
   if (isNaN(carat) || carat <= 0 || carat > 10) {
     return NextResponse.json({ error: "Invalid carat" }, { status: 400 });
   }

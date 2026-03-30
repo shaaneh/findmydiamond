@@ -4,7 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "findmydiamond — UK Diamond Price Check",
   description:
-    "Check if you're getting a fair price on a UK diamond. Compare prices from UK jewellers and find the best deals.",
+    "Check if you're getting a fair price on a UK diamond. Compare prices from trusted UK jewellers and find the best deals on GIA and IGI certified diamonds.",
+  openGraph: {
+    title: "findmydiamond — UK Diamond Price Check",
+    description:
+      "Compare diamond prices from UK jewellers. Get a fair price estimate in seconds.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -14,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }
