@@ -69,6 +69,10 @@ export async function fetchBluenileFeed(): Promise<FeedResult[]> {
         certification_body: cert === "IGI" ? "IGI" : "GIA",
         retailer_url: item.url || null,
         shape: "Round",
+        diamond_type: "natural",
+        symmetry: null,
+        polish: null,
+        fluorescence: null,
       });
     }
 

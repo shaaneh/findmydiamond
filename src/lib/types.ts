@@ -8,7 +8,11 @@ export type Clarity =
   | "VS2"
   | "SI1"
   | "SI2";
-export type CertificationBody = "GIA" | "IGI";
+export type CertificationBody = "GIA" | "IGI" | "HRD" | "AGS" | "EGL" | "GCAL";
+export type DiamondType = "natural" | "lab-grown";
+export type Symmetry = "Excellent" | "Very Good" | "Good" | "Fair";
+export type Polish = "Excellent" | "Very Good" | "Good" | "Fair";
+export type Fluorescence = "None" | "Faint" | "Medium" | "Strong" | "Very Strong";
 
 export interface Listing {
   id: string;
@@ -21,6 +25,10 @@ export interface Listing {
   certification_body: CertificationBody;
   retailer_url: string | null;
   shape: string;
+  diamond_type: DiamondType;
+  symmetry: Symmetry | null;
+  polish: Polish | null;
+  fluorescence: Fluorescence | null;
   created_at: string;
 }
 
@@ -37,32 +45,14 @@ export interface EmailSignup {
   created_at: string;
 }
 
-export interface Database {
-  public: {
-    Tables: {
-      listings: {
-        Row: Listing;
-        Insert: Omit<Listing, "id" | "created_at">;
-        Update: Partial<Omit<Listing, "id" | "created_at">>;
-      };
-      email_signups: {
-        Row: EmailSignup;
-        Insert: Omit<EmailSignup, "id" | "created_at">;
-        Update: Partial<Omit<EmailSignup, "id" | "created_at">>;
-      };
-    };
-    Views: {};
-    Functions: {};
-    Enums: {};
-  };
-}
-
 export interface SearchParams {
   carat: number;
   cut: Cut;
   color: Color;
   clarity: Clarity;
   budget?: number;
+  diamondType?: DiamondType | "all";
+  certLabs?: CertificationBody[];
 }
 
 export interface FairPriceResult {
@@ -76,3 +66,14 @@ export interface FairPriceResult {
 export interface ListingWithDelta extends Listing {
   deltaPercent: number | null;
 }
+
+export const CERT_LAB_INFO: Record<CertificationBody, { label: string; trust: string }> = {
+  GIA: { label: "GIA", trust: "Widely recognised, consistent grading" },
+  IGI: { label: "IGI", trust: "Widely recognised, consistent grading" },
+  AGS: { label: "AGS", trust: "Widely recognised, consistent grading" },
+  HRD: { label: "HRD", trust: "Respected European lab, consistent grading" },
+  EGL: { label: "EGL", trust: "May grade 1-2 grades more leniently than GIA" },
+  GCAL: { label: "GCAL", trust: "Guaranteed grading with certificate of authenticity" },
+};
+
+export const ALL_CERT_LABS: CertificationBody[] = ["GIA", "IGI", "HRD", "AGS", "EGL", "GCAL"];

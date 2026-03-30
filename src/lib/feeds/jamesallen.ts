@@ -69,6 +69,10 @@ export async function fetchJamesAllenFeed(): Promise<FeedResult[]> {
         certification_body: cert === "GIA" ? "GIA" : "IGI",
         retailer_url: item.link || null,
         shape: "Round",
+        diamond_type: "natural",
+        symmetry: null,
+        polish: null,
+        fluorescence: null,
       });
     }
 
