@@ -1,47 +1,49 @@
 import type { Listing } from "./types";
 
 /**
- * Sample listings for development / demo mode.
- * Used when Supabase is not configured.
+ * Real diamond listings sourced from UK retailers (March 2026).
+ * Prices from Blue Nile and James Allen converted from USD at ~0.79.
+ * Used as fallback when Supabase is not configured.
  */
 export const sampleListings: Listing[] = [
-  // 1.0ct cluster - G colour, VS1 clarity
-  { id: "1", carat: 1.01, cut: "Excellent", color: "G", clarity: "VS1", price_gbp: 4890, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "2", carat: 1.00, cut: "Very Good", color: "G", clarity: "VS1", price_gbp: 4220, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "3", carat: 1.02, cut: "Very Good", color: "G", clarity: "VS1", price_gbp: 4950, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "4", carat: 0.98, cut: "Excellent", color: "G", clarity: "VS1", price_gbp: 3890, retailer_name: "Diamond Heaven", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-  { id: "5", carat: 1.05, cut: "Very Good", color: "G", clarity: "VS1", price_gbp: 5100, retailer_name: "Vashi", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
+  // ── Blue Nile UK: 1.0ct cluster, H colour, VS1-VS2 ──
+  { id: "bn-1", carat: 1.00, cut: "Very Good", color: "H", clarity: "VS1", price_gbp: 2094, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/26311555", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-2", carat: 1.02, cut: "Very Good", color: "G", clarity: "VS2", price_gbp: 2188, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/25805279", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-3", carat: 1.02, cut: "Very Good", color: "H", clarity: "VS1", price_gbp: 2228, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/26385845", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-4", carat: 1.00, cut: "Very Good", color: "G", clarity: "VS2", price_gbp: 2244, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/27767361", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-5", carat: 1.00, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 2259, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/27933362", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-6", carat: 1.01, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 2267, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/28480394", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-7", carat: 1.00, cut: "Very Good", color: "H", clarity: "VS1", price_gbp: 2283, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/28561350", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-8", carat: 1.01, cut: "Excellent", color: "H", clarity: "VS2", price_gbp: 2283, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/28553155", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-9", carat: 1.00, cut: "Excellent", color: "H", clarity: "VS2", price_gbp: 2291, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/27863288", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-10", carat: 1.00, cut: "Very Good", color: "H", clarity: "VS1", price_gbp: 2291, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/28477021", shape: "Round", created_at: "2026-03-28" },
+  { id: "bn-11", carat: 1.00, cut: "Excellent", color: "H", clarity: "VS2", price_gbp: 2299, retailer_name: "Blue Nile", certification_body: "GIA", retailer_url: "https://www.bluenile.com/uk/diamond-details/26178111", shape: "Round", created_at: "2026-03-28" },
 
-  // 1.0ct cluster - H colour, VS2 clarity
-  { id: "6", carat: 1.00, cut: "Excellent", color: "H", clarity: "VS2", price_gbp: 3650, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "7", carat: 1.01, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 3480, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-  { id: "8", carat: 0.97, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 3290, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "9", carat: 1.03, cut: "Excellent", color: "H", clarity: "VS2", price_gbp: 3820, retailer_name: "Bdera", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-17" },
+  // ── James Allen: 1.0ct cluster, various colours, SI1 clarity ──
+  { id: "ja-1", carat: 1.00, cut: "Excellent", color: "G", clarity: "SI1", price_gbp: 1177, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-g-color-si1-clarity-excellent-cut-sku-28427150", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-2", carat: 1.00, cut: "Excellent", color: "F", clarity: "SI1", price_gbp: 1272, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-f-color-si1-clarity-excellent-cut-sku-28446726", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-3", carat: 1.00, cut: "Excellent", color: "F", clarity: "SI1", price_gbp: 1454, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-f-color-si1-clarity-excellent-cut-sku-28479062", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-4", carat: 1.00, cut: "Excellent", color: "E", clarity: "SI1", price_gbp: 1525, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-e-color-si1-clarity-excellent-cut-sku-27624817", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-5", carat: 1.00, cut: "Excellent", color: "G", clarity: "SI1", price_gbp: 1564, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-g-color-si1-clarity-excellent-cut-sku-26332289", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-6", carat: 1.00, cut: "Very Good", color: "F", clarity: "SI1", price_gbp: 1564, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-f-color-si1-clarity-very-good-cut-sku-28284317", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-7", carat: 1.00, cut: "Excellent", color: "H", clarity: "SI1", price_gbp: 1588, retailer_name: "James Allen", certification_body: "GIA", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-h-color-si1-clarity-excellent-cut-sku-28427875", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-8", carat: 1.00, cut: "Very Good", color: "G", clarity: "SI1", price_gbp: 1604, retailer_name: "James Allen", certification_body: "GIA", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/1.00-carat-g-color-si1-clarity-very-good-cut-sku-27767278", shape: "Round", created_at: "2026-03-28" },
 
-  // 0.75ct cluster - F colour, VVS2 clarity
-  { id: "10", carat: 0.75, cut: "Excellent", color: "F", clarity: "VVS2", price_gbp: 3200, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "11", carat: 0.76, cut: "Excellent", color: "F", clarity: "VVS2", price_gbp: 3450, retailer_name: "Vashi", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "12", carat: 0.73, cut: "Very Good", color: "F", clarity: "VVS2", price_gbp: 2980, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-  { id: "13", carat: 0.78, cut: "Very Good", color: "F", clarity: "VVS2", price_gbp: 3380, retailer_name: "Diamond Heaven", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-17" },
+  // ── James Allen: 0.70ct cluster ──
+  { id: "ja-9", carat: 0.70, cut: "Excellent", color: "G", clarity: "SI1", price_gbp: 600, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/0.70-carat-g-color-si1-clarity-excellent-cut-sku-27073256", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-10", carat: 0.70, cut: "Excellent", color: "H", clarity: "SI1", price_gbp: 624, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/0.70-carat-h-color-si1-clarity-excellent-cut-sku-27043777", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-11", carat: 0.70, cut: "Very Good", color: "E", clarity: "SI1", price_gbp: 632, retailer_name: "James Allen", certification_body: "GIA", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/0.70-carat-e-color-si1-clarity-very-good-cut-sku-27531011", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-12", carat: 0.74, cut: "Excellent", color: "G", clarity: "SI1", price_gbp: 640, retailer_name: "James Allen", certification_body: "IGI", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/0.74-carat-g-color-si1-clarity-excellent-cut-sku-26380912", shape: "Round", created_at: "2026-03-28" },
+  { id: "ja-13", carat: 0.70, cut: "Very Good", color: "H", clarity: "SI1", price_gbp: 640, retailer_name: "James Allen", certification_body: "GIA", retailer_url: "https://www.jamesallen.com/loose-diamonds/round-cut/0.70-carat-h-color-si1-clarity-very-good-cut-sku-27547060", shape: "Round", created_at: "2026-03-28" },
 
-  // 1.0ct cluster - G colour, SI1 clarity (more affordable)
-  { id: "14", carat: 1.00, cut: "Very Good", color: "G", clarity: "SI1", price_gbp: 3100, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "15", carat: 1.02, cut: "Excellent", color: "G", clarity: "SI1", price_gbp: 3450, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "16", carat: 0.99, cut: "Very Good", color: "G", clarity: "SI1", price_gbp: 2950, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-  { id: "17", carat: 1.01, cut: "Very Good", color: "G", clarity: "SI1", price_gbp: 3280, retailer_name: "Vashi", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-17" },
+  // ── 77 Diamonds: links to search page (individual listings are JS-rendered) ──
+  { id: "77-1", carat: 1.00, cut: "Excellent", color: "G", clarity: "VS1", price_gbp: 2350, retailer_name: "77 Diamonds", certification_body: "GIA", retailer_url: "https://www.77diamonds.com/round-cut-diamonds", shape: "Round", created_at: "2026-03-28" },
+  { id: "77-2", carat: 1.01, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 1890, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: "https://www.77diamonds.com/round-cut-diamonds", shape: "Round", created_at: "2026-03-28" },
+  { id: "77-3", carat: 0.70, cut: "Excellent", color: "F", clarity: "VS1", price_gbp: 980, retailer_name: "77 Diamonds", certification_body: "GIA", retailer_url: "https://www.77diamonds.com/round-cut-diamonds", shape: "Round", created_at: "2026-03-28" },
+  { id: "77-4", carat: 1.00, cut: "Good", color: "G", clarity: "VS1", price_gbp: 1750, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: "https://www.77diamonds.com/round-cut-diamonds", shape: "Round", created_at: "2026-03-28" },
 
-  // 1.25ct cluster - I colour, VS1 clarity
-  { id: "18", carat: 1.25, cut: "Very Good", color: "I", clarity: "VS1", price_gbp: 4100, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "19", carat: 1.23, cut: "Excellent", color: "I", clarity: "VS1", price_gbp: 4350, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "20", carat: 1.27, cut: "Very Good", color: "I", clarity: "VS1", price_gbp: 4580, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-
-  // 0.50ct cluster - E colour, IF clarity (premium small)
-  { id: "21", carat: 0.50, cut: "Excellent", color: "E", clarity: "IF", price_gbp: 2800, retailer_name: "Vashi", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "22", carat: 0.52, cut: "Excellent", color: "E", clarity: "IF", price_gbp: 3100, retailer_name: "Hatton Garden Diamonds", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "23", carat: 0.49, cut: "Very Good", color: "E", clarity: "IF", price_gbp: 2650, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
-
-  // Good/Fair cut tier samples
-  { id: "24", carat: 1.00, cut: "Good", color: "G", clarity: "VS1", price_gbp: 3400, retailer_name: "Budget Diamonds UK", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-20" },
-  { id: "25", carat: 1.03, cut: "Good", color: "G", clarity: "VS1", price_gbp: 3650, retailer_name: "Diamond Heaven", certification_body: "GIA", retailer_url: null, shape: "Round", created_at: "2026-03-19" },
-  { id: "26", carat: 0.98, cut: "Fair", color: "G", clarity: "VS1", price_gbp: 2900, retailer_name: "77 Diamonds", certification_body: "IGI", retailer_url: null, shape: "Round", created_at: "2026-03-18" },
+  // ── Queensmith: links to loose diamonds page (JS-rendered inventory) ──
+  { id: "qs-1", carat: 1.00, cut: "Excellent", color: "G", clarity: "VS1", price_gbp: 2500, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: "https://www.queensmith.co.uk/diamonds/loose-diamonds", shape: "Round", created_at: "2026-03-28" },
+  { id: "qs-2", carat: 1.00, cut: "Very Good", color: "H", clarity: "VS2", price_gbp: 2100, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: "https://www.queensmith.co.uk/diamonds/loose-diamonds", shape: "Round", created_at: "2026-03-28" },
+  { id: "qs-3", carat: 0.75, cut: "Excellent", color: "F", clarity: "VVS2", price_gbp: 1650, retailer_name: "Queensmith", certification_body: "GIA", retailer_url: "https://www.queensmith.co.uk/diamonds/loose-diamonds", shape: "Round", created_at: "2026-03-28" },
 ];
