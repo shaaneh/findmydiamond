@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
 import { fetchAllFeeds } from "@/lib/feeds";
+import { fetchLiveExchangeRate, updateExchangeRate } from "@/lib/exchange-rate";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -22,8 +23,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // TODO (Task 5): fetch live exchange rate and pass here
-    const listings = await fetchAllFeeds(0.79);
+    // Fetch and store live exchange rate
+    const liveRate = await fetchLiveExchangeRate();
+    await updateExchangeRate(liveRate);
+
+    const listings = await fetchAllFeeds(liveRate);
 
     if (listings.length === 0) {
       return NextResponse.json({
@@ -68,6 +72,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       status: "ok",
+      exchangeRate: liveRate,
       inserted: data?.length ?? 0,
       staleRemoved: !staleError,
       timestamp: new Date().toISOString(),
